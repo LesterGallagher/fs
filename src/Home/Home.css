@@ -1,0 +1,50 @@
+.dropzone {
+    height: calc(100vh - 67px);
+    margin-top: 10px;
+}
+
+.Home {
+    padding: 10px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+}
+
+.container>p {
+    font-size: 1rem;
+}
+
+.container>em {
+    font-size: .8rem;
+}
+
+.dropzone {
+    align-items: center;
+    padding: 20px;
+    border-radius: 4px;
+    background-color: #fafafa;
+    color: #282c34;
+    outline: none;
+    transition: border .24s ease-in-out;
+    box-shadow: inset 0 0 50px #282c34;
+}
+
+.dropzone:focus {
+    border-color: #2196f3;
+}
+
+.dropzone.disabled {
+    opacity: 0.6;
+}
+
+.Home .file-icon {
+    line-height: normal;
+    font-size: 100px;
+}
+
+.Home .file-icon::before {
+    font-size: 100px;
+}

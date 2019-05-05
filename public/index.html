@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+  <title>File Share</title>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+  <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  <script>
+    if (navigator.userAgent.toLowerCase().indexOf(' electron/') === -1) {
+      var $buoop = { required: { e: -3, f: 62, s: 9, c: 68, o: -3 }, reminder: 0, no_permanent_hide: true, insecure: true, api: 2019.04 };
+      function $buo_f() {
+        var e = document.createElement("script");
+        e.src = "//browser-update.org/update.min.js";
+        document.body.appendChild(e);
+      };
+      try { document.addEventListener("DOMContentLoaded", $buo_f, false) }
+      catch (e) { window.attachEvent("onload", $buo_f) }
+    }
+  </script>
+  <script>
+    if (navigator.userAgent.toLowerCase().indexOf(' electron/') > -1) {
+      var { ipcRenderer } = require('electron');
+      var customTitlebar = require('custom-electron-titlebar');
+
+      new customTitlebar.Titlebar({
+        backgroundColor: customTitlebar.Color.fromHex('#4a3546'),
+        menu: null,
+        titleHorizontalAlignment: 'left'
+      });
+
+      window.imagemin = function (uint8array, quality) {
+        return new Promise(function (resolve, reject) {
+          var id = Math.random();
+          var listener = function (event, arg) {
+            if (id === arg.id) {
+              ipcRenderer.removeListener('imagemin-buffer-response', listener);
+              resolve(arg.uint8array);
+            }
+          };
+          ipcRenderer.on('imagemin-buffer-response', listener);
+          ipcRenderer.send('imagemin-buffer', { uint8array: uint8array, id: id, quality });
+        });
+      }
+    }
+  </script>
+</body>
+
+</html>
